@@ -1,9 +1,99 @@
-openapi: '3.0.0'
+openapi: 3.0.0
 info:
-  title: gads
+  title: gea
   version: '1.0'
+  description: ''
 servers:
-- url: http://localhost:3000
-paths: {}
+  - url: 'https://jsonplaceholder.typicode.com'
+paths:
+  
+  '/users/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: get-users-id
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: id
+          description: ''
+  '/todos/{id}':
+    parameters:
+      - schema:
+          type: number
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+              examples:
+                example-1:
+                  value:
+                    userId: 0
+                    id: 0
+                    title: string
+                    completed: true
+      operationId: get-todos-id
+      parameters: []
+  /todos:
+    post:
+      summary: ''
+      operationId: post-todos
+      responses:
+        '200':
+          description: OK
+      description: fsa fsfsd
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Todo'
+            examples:
+              example-1:
+                value:
+                  userId: 0
+                  id: 0
+                  title: string
+                  completed: true
+          application/json:
+            schema:
+              type: object
+              properties: {}
 components:
-  schemas: {}
+  schemas:
+    Todo:
+      description: ''
+      type: object
+      properties:
+        userId:
+          type: number
+        id:
+          type: number
+        title:
+          type: string
+          minLength: 1
+        completed:
+          type: boolean
+      required:
+        - userId
+        - id
+        - title
+        - completed
